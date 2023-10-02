@@ -21,7 +21,7 @@ public class conexion {
     }
     public void Conectar(){
         try{
-            conector=DriverManager.getConnection("jdbc:mysql://localhost:3306/cine",user,contrasena);
+            conector=DriverManager.getConnection("jdbc:mysql://localhost:3306/crudsebastian",user,contrasena);
         }catch(SQLException e){
             e.printStackTrace();
         }
