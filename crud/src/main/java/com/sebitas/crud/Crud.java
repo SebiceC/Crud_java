@@ -5,6 +5,11 @@
 
 package com.sebitas.crud;
 
+import java.util.ArrayList;
+
+import com.sebitas.crud.logica.CRUD;
+import com.sebitas.crud.logica.Ciudad;
+
 /**
  *
  * @author USUARIO
@@ -12,6 +17,13 @@ package com.sebitas.crud;
 public class Crud {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        CRUD cr = new CRUD();
+        //cr.crearCiudad(new Ciudad(5, "Girardot"));
+        
+        for (Ciudad ciudad : cr.leerCiudad()) {
+            System.out.println(ciudad);
+        }
+        //cr.modificarCiudad(5, new Ciudad(5, "Melgar"));
+        //cr.eliminarCiudad(2);
     }
 }

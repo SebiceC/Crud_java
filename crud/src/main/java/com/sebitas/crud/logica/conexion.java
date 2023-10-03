@@ -11,17 +11,17 @@ import java.sql.SQLException;
  *
  * @author USUARIO
  */
-public class conexion {
+public class Conexion {
+    private static final String USER = "root";
+    private static final String PASS = "123456";
+    private static final String URLJDBC = "jdbc:mysql://localhost:3306/crudsebastian";
     private Connection conector;
-    private String contrasena;
-    private String user;
-    public conexion(){
-        this.contrasena="123456";
-        this.user = "root";
+    public Conexion(){
+      // TODO document why this constructor is empty
     }
     public void Conectar(){
         try{
-            conector=DriverManager.getConnection("jdbc:mysql://localhost:3306/crudsebastian",user,contrasena);
+            conector=DriverManager.getConnection(URLJDBC,USER,PASS);
         }catch(SQLException e){
             e.printStackTrace();
         }
