@@ -21,5 +21,9 @@ public class Genero {
     public void setGeneroNombre(String generoNombre) {
         this.generoNombre = generoNombre;
     }
+    @Override
+    public String toString() {
+        return "Genero [idGenero=" + idGenero + ", generoNombre=" + generoNombre + "]";
+    }
     
 }

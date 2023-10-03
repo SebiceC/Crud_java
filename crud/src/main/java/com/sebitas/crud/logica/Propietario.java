@@ -38,6 +38,10 @@ public class Propietario {
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
+    @Override
+    public String toString() {
+        return "Propietario [id=" + id + ", nombre=" + nombre + ", genero=" + genero + ", ciudad=" + ciudad + "]";
+    }
     
 
 }

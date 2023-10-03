@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.sebitas.crud.logica.CRUD;
 import com.sebitas.crud.logica.Ciudad;
+import com.sebitas.crud.logica.Propietario;
 
 /**
  *
@@ -20,8 +21,10 @@ public class Crud {
         CRUD cr = new CRUD();
         //cr.crearCiudad(new Ciudad(5, "Girardot"));
         
-        for (Ciudad ciudad : cr.leerCiudad()) {
-            System.out.println(ciudad);
+        ArrayList<Propietario> prop =(ArrayList) cr.leerPropiertarios();
+        System.out.println(prop.size());
+        for(int i=0;i<prop.size();i++){
+            System.out.println(prop.get(i));
         }
         //cr.modificarCiudad(5, new Ciudad(5, "Melgar"));
         //cr.eliminarCiudad(2);
