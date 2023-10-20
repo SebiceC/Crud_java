@@ -6,22 +6,24 @@ package com.sebitas.crud.logica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author USUARIO
  */
-public class Conexion {
+public class conexion {
     private static final String USER = "root";
-    private static final String PASS = "123456";
+    private static final String PASS = "Payday2123.";
     private static final String URLJDBC = "jdbc:mysql://localhost:3306/crudsebastian";
     private Connection conector;
-    public Conexion(){
+    public conexion(){
       // TODO document why this constructor is empty
     }
     public void Conectar(){
         try{
             conector=DriverManager.getConnection(URLJDBC,USER,PASS);
+            JOptionPane.showMessageDialog(null,"Conexion establecida!");
         }catch(SQLException e){
             e.printStackTrace();
         }

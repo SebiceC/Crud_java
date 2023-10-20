@@ -7,7 +7,7 @@ import java.util.List;
 import java.sql.ResultSet;
 
 public class CRUD {
-    private Conexion Con;
+    private conexion Con;
     private PreparedStatement pst;
     
     //CRUD CIUDAD:
@@ -191,7 +191,7 @@ public class CRUD {
         }
     }
     public CRUD() {
-        this.Con = new Conexion();
+        this.Con = new conexion();
     }
 
 
