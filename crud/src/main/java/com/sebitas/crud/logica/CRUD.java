@@ -24,6 +24,7 @@ public class CRUD {
             System.out.println(e.getMessage());
         }
     }
+    
     public List<Ciudad> leerCiudad(){
         String sql = "select idciudad,ciudadnombre from ciudad";
         ResultSet result;
