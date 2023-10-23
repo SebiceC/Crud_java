@@ -4,6 +4,8 @@
  */
 package com.sebitas.crud.interfaz;
 
+import java.awt.Point;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,7 +14,14 @@ import javax.swing.table.DefaultTableModel;
  * @author USUARIO
  */
 public class Principal extends javax.swing.JFrame {
-    DefaultTableModel model=new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel() {
+        // Override el método isCellEditable para hacer que todas las celdas no sean editables
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };    
+    private Controlador control;
     /**
      * Creates new form Principal
      */
@@ -23,8 +32,47 @@ public class Principal extends javax.swing.JFrame {
         model.addColumn("Genero");
         model.addColumn("IdCiudad");
         this.tablaPropietario.setModel(model);
+        addControl();
     }
 
+    public javax.swing.JButton getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public javax.swing.JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public javax.swing.JButton getBtnLeer() {
+        return btnLeer;
+    }
+
+    public javax.swing.JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public javax.swing.JTextField getTxtGenero() {
+        return txtGenero;
+    }
+
+    public javax.swing.JTextField getTxtIdCiudad() {
+        return txtIdCiudad;
+    }
+
+    public javax.swing.JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public javax.swing.JTextField getTxtNumId() {
+        return txtNumId;
+    }
+
+    private Controlador getControl(){
+        if (this.control == null) {
+            control = new Controlador(this);
+        }
+        return control;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,23 +113,6 @@ public class Principal extends javax.swing.JFrame {
 
         labelGenero.setText("Genero");
 
-        txtNumId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumIdActionPerformed(evt);
-            }
-        });
-
-        txtGenero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGeneroActionPerformed(evt);
-            }
-        });
-
-        txtIdCiudad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdCiudadActionPerformed(evt);
-            }
-        });
 
         labelIdCiudad.setText("IdCiudad");
 
@@ -105,7 +136,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(txtIdCiudad))
                     .addComponent(txtNumId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,32 +162,14 @@ public class Principal extends javax.swing.JFrame {
         panelOpcionesCrud.setToolTipText("");
 
         btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
+
 
         btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
+
 
         btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
 
         btnLeer.setText("Leer");
-        btnLeer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLeerActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelOpcionesCrudLayout = new javax.swing.GroupLayout(panelOpcionesCrud);
         panelOpcionesCrud.setLayout(panelOpcionesCrudLayout);
@@ -171,7 +184,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnEliminar)
                 .addGap(80, 80, 80)
                 .addComponent(btnLeer)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelOpcionesCrudLayout.setVerticalGroup(
             panelOpcionesCrudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,6 +199,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propietario", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        jPanel1.setAutoscrolls(true);
 
         tablaPropietario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,11 +212,7 @@ public class Principal extends javax.swing.JFrame {
                 "Numid", "Nombres", "Genero", "idCiudad"
             }
         ));
-        tablaPropietario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaPropietarioMouseClicked(evt);
-            }
-        });
+
         jScrollPane1.setViewportView(tablaPropietario);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,13 +222,13 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -233,14 +243,12 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(labelTitulo))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(panelOpcionesCrud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,85 +267,23 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumIdActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-        String []agregar=new String[4];
-        agregar[0]=txtNumId.getText();
-        agregar[1]=txtNombre.getText();
-        agregar[2]=txtGenero.getText();
-        agregar[3]=txtIdCiudad.getText();
-        model.addRow(agregar);
-        
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-       int eliminar=tablaPropietario.getSelectedRowCount();
-       if(eliminar>=0){
-           model.removeRow(eliminar);
-       }else{
-           JOptionPane.showMessageDialog(rootPane, "No hay datos que eliminar");
-       }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLeerActionPerformed
-
-    private void txtGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGeneroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtGeneroActionPerformed
-
-    private void tablaPropietarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPropietarioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tablaPropietarioMouseClicked
-
-    private void txtIdCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCiudadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdCiudadActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
+    private void addControl(){
+        btnAgregar.addActionListener(getControl());
+        btnEliminar.addActionListener(getControl());
+        btnLeer.addActionListener(getControl());
+        btnModificar.addActionListener(getControl());
+        tablaPropietario.addMouseListener(getControl());
     }
+    
+
+    public DefaultTableModel getModel() {
+        return model;
+    }
+
+    public javax.swing.JTable getTablaPropietario() {
+        return tablaPropietario;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -359,4 +305,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumId;
     // End of variables declaration//GEN-END:variables
+
 }

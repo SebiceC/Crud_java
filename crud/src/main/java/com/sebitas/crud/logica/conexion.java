@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class conexion {
     private static final String USER = "root";
-    private static final String PASS = "Payday2123.";
+    private static final String PASS = "123456";
     private static final String URLJDBC = "jdbc:mysql://localhost:3306/crudsebastian";
     private Connection conector;
     public conexion(){
@@ -23,7 +23,7 @@ public class conexion {
     public void Conectar(){
         try{
             conector=DriverManager.getConnection(URLJDBC,USER,PASS);
-            JOptionPane.showMessageDialog(null,"Conexion establecida!");
+            System.out.println("Conexion a la base de datos exitosa");
         }catch(SQLException e){
             e.printStackTrace();
         }

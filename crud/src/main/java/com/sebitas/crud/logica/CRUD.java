@@ -24,8 +24,25 @@ public class CRUD {
             System.out.println(e.getMessage());
         }
     }
-    
-    public List<Ciudad> leerCiudad(){
+    public Ciudad leerCiudad(int id){
+        String sql = "select * from ciudad where idciudad=?";
+        ResultSet resultSet;
+        Ciudad ciu;
+        try {
+            Con.Conectar();
+            pst = Con.getConector().prepareStatement(sql);
+            pst.setInt(1, id);
+            resultSet = pst.executeQuery();
+            resultSet.next();
+            ciu = new Ciudad(resultSet.getInt(1),resultSet.getString(2));
+            Con.desconectar();
+            return ciu;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Ciudad> leerCiudades(){
         String sql = "select idciudad,ciudadnombre from ciudad";
         ResultSet result;
         ArrayList<Ciudad> ciudades = new ArrayList<>();
@@ -87,7 +104,25 @@ public class CRUD {
             System.err.println("ERROR: "+e.getMessage());
         }
     }
-    public List<Genero> leerGenero(){
+    public Genero leerGenero(String ngen){
+        String sql = "select * from genero where generoNombre=?";
+        ResultSet resultSet;
+        Genero gen;
+        try {
+            Con.Conectar();
+            pst = Con.getConector().prepareStatement(sql);
+            pst.setString(1, ngen);
+            resultSet = pst.executeQuery();
+            resultSet.next();
+            gen = new Genero(resultSet.getInt(1), resultSet.getString(2));
+            Con.desconectar();
+            return gen;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public List<Genero> leerGeneros(){
         String sql = "select idgenero,generoNombre from genero";
         ResultSet resultSet;
         ArrayList<Genero> generos = new ArrayList<>();
@@ -136,19 +171,21 @@ public class CRUD {
     }
     //fin crud genero
     //CRUD Propietario
-    public void crearPropietario(Propietario propietario){
+    public boolean crearPropietario(Propietario propietario){
         String sql = "insert into propietario (numID,nombre,idGenero,idCiudad) VALUES (?,?,?,?)";
         try {
             Con.Conectar();
             pst = Con.getConector().prepareStatement(sql);
             pst.setInt(1, propietario.getId());
-            pst.setString(1, propietario.getNombre());
+            pst.setString(2, propietario.getNombre());
             pst.setInt(3, propietario.getGenero().getIdGenero());
             pst.setInt(4, propietario.getCiudad().getIdCiudad());
             pst.execute();
             Con.desconectar();
+            return true;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
     }
     public List<Propietario> leerPropiertarios(){
@@ -172,8 +209,23 @@ public class CRUD {
         }
         return propietarios;
     }
-    public void modificarPropiertario(){
-
+    public boolean modificarPropiertario(int id,String nuevoNombre,int newGenero,int newCiudad){
+        String sql = "UPDATE propietario set nombre=?,idGenero=?,idCiudad=? where numID=?";
+        try {
+            Con.Conectar();
+            pst = Con.getConector().prepareStatement(sql);
+            pst.setString(1, nuevoNombre);
+            pst.setInt(2, newGenero);
+            pst.setInt(3, newCiudad);
+            pst.setInt(4, id);
+            pst.executeUpdate();
+            Con.desconectar();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("ERROR"+e.getMessage());
+            return false;
+        }
+        
     }
 
     public boolean eliminarPropietario(int idP){
